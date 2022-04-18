@@ -3,16 +3,18 @@ class PlayersController < ApplicationController
 
   # GET /players or /players.json
   def index
-    @players = Player.all
+    @players = Players.all
   end
 
   # GET /players/1 or /players/1.json
   def show
-  end
+   # @players = Players.find(params[:id])
+  end 
 
   # GET /players/new
   def new
-    @player = Player.new
+    @players = Players.new
+   
   end
 
   # GET /players/1/edit
@@ -21,50 +23,43 @@ class PlayersController < ApplicationController
 
   # POST /players or /players.json
   def create
-    @player = Player.new(player_params)
-
-    respond_to do |format|
-      if @player.save
-        format.html { redirect_to player_url(@player), notice: "Player was successfully created." }
-        format.json { render :show, status: :created, location: @player }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
-      end
+    @players = Players.new(username: params[:username], email: params[:email])
+    @players.save
+    if @players.save 
+      redirect_to @players
+    else 
+      render 'new'
     end
   end
 
   # PATCH/PUT /players/1 or /players/1.json
   def update
-    respond_to do |format|
-      if @player.update(player_params)
-        format.html { redirect_to player_url(@player), notice: "Player was successfully updated." }
-        format.json { render :show, status: :ok, location: @player }
+    @players.update(params.require(:players).permit(:name, :army, :wins, :loses, :username))
+      if @players.update(params.require(:players).permit(:name, :army, :wins, :loses, :username))
+        flash[:message] = "Updated Successfully!"
+        redirect_to @players
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
+        render 'edit'  
       end
-    end
-  end
+    end    
+
 
   # DELETE /players/1 or /players/1.json
   def destroy
-    @player.destroy
-
-    respond_to do |format|
-      format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    flash[:message] = "#{@players.name} was successfully deleted."
+    @players.destroy
+    redirect_to players_path
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_player
-      @player = Player.find(params[:id])
+    def set_players
+      @players = Players.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.fetch(:player, {})
+      params.fetch(:players, {})
     end
+
 end

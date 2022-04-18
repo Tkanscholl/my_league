@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_14_194515) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_15_021938) do
   create_table "leagues", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -21,6 +21,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_14_194515) do
     t.string "Army"
     t.integer "Wins"
     t.integer "Loses"
+    t.string "user_name"
+    t.string "password_digest"
   end
 
 end
