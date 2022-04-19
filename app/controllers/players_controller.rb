@@ -1,19 +1,19 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[ show edit update destroy ]
 
-  # GET /players or /players.json
+  Z# GET /players or /players.json
   def index
-    @players = Players.all
+    @players = Player.all
   end
 
   # GET /players/1 or /players/1.json
   def show
-   # @players = Players.find(params[:id])
+   # @players = Player.find(params[:id])
   end 
 
   # GET /players/new
   def new
-    @players = Players.new
+    @players = Player.new
    
   end
 
@@ -23,7 +23,7 @@ class PlayersController < ApplicationController
 
   # POST /players or /players.json
   def create
-    @players = Players.new(username: params[:username], email: params[:email])
+    @players = Player.new(username: params[:username], email: params[:email])
     @players.save
     if @players.save 
       redirect_to @players
@@ -54,7 +54,7 @@ class PlayersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_players
-      @players = Players.find(params[:id])
+      @players = Player.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

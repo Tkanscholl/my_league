@@ -1,6 +1,28 @@
 <h1>New league</h1>
 
-<%= render "form", league: @league %>
+<div style="margin: 0 25%; width: 50%">
+
+  <%= form_with(model: @player) do |form| %>
+  <div class="mb-3">
+    <%= form.label :username, "Username:", class:"form-label" %>
+    <%=form.text_field :username, class:"form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :email, "Email:", class:"form-label" %> 
+    <%= form.text_field :email, class:"form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :password, "Password:", class:"form-label" %>
+    <%= form.password_field :password, class:"form-control" %>
+  </div>
+  <%= form.submit "Sign up", class:"btn btn-primary" %><% end %>
+</div>
+
+<br>
+
+<div>
+  <%= link_to "Back to League", league_path %>
+</div>
 
 <br>
 
